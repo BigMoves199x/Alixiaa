@@ -16,7 +16,11 @@
   "routes": [
     {
       "src": "/api/submit-form",
-      "dest": "/server.js"
+      "dest": "/api/submit-form"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
     }
   ]
 }

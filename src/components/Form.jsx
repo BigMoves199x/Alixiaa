@@ -6,7 +6,7 @@ import Step2 from '../components/FormInput/Step2';
 import Step3 from '../components/FormInput/Step3';
 import Step4 from '../components/FormInput/Step4';
 
-const Form = ({ onClose }) => {
+const Form = () => {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
