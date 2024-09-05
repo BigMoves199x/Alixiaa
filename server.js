@@ -8,7 +8,7 @@ import { config as configDotenv } from 'dotenv';
 configDotenv(); 
 
 const app = express();
-const port = process.env.PORT || 5001;
+const port = process.env.PORT || 5002;
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
