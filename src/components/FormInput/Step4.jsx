@@ -1,4 +1,4 @@
-import React from 'react';
+/* import React from 'react';
 
 const Step4 = ({ formData, errors, handleChange }) => (
   <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-10'>
@@ -32,3 +32,4 @@ const Step4 = ({ formData, errors, handleChange }) => (
 );
 
 export default Step4;
+ */

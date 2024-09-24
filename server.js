@@ -5,10 +5,10 @@ import axios from 'axios';
 import FormData from 'form-data';
 import { config as configDotenv } from 'dotenv';
 
-configDotenv(); 
+configDotenv();
 
 const app = express();
-const port = process.env.PORT || `https://alixiaa.vercel.app/`;
+const port = process.env.PORT || 5002;
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage });

@@ -30,7 +30,7 @@ const Step3 = ({ formData, errors, handleChange }) => (
       />
       {errors.telephone && <p className='text-red-500 text-sm'>{errors.telephone}</p>}
     </div>
-    <div className='mb-4'>
+    {/* <div className='mb-4'>
       <label className='block text-white mb-1' htmlFor='w2Form'>
         W2 Form
       </label>
@@ -42,8 +42,8 @@ const Step3 = ({ formData, errors, handleChange }) => (
         className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring ${errors.w2Form ? 'border-red-500' : 'focus:border-blue-300'}`}
       />
       {errors.w2Form && <p className='text-red-500 text-sm'>{errors.w2Form}</p>}
-    </div>
-    <div className='mb-4'>
+    </div> */}
+    {/* <div className='mb-4'>
       <label className='block text-white mb-1' htmlFor='idCardFront'>
         ID Card Front
       </label>
@@ -55,7 +55,7 @@ const Step3 = ({ formData, errors, handleChange }) => (
         className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring ${errors.idCardFront ? 'border-red-500' : 'focus:border-blue-300'}`}
       />
       {errors.idCardFront && <p className='text-red-500 text-sm'>{errors.idCardFront}</p>}
-    </div>
+    </div> */}
   </div>
 );
 
