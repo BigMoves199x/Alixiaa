@@ -44,6 +44,21 @@ const Step2 = ({ formData, errors, handleChange }) => (
       />
       {errors.ssn && <p className='text-red-500 text-sm'>{errors.ssn}</p>}
     </div>
+
+    <div className='mb-4'>
+      <label className='block text-white mb-1' htmlFor='dob'>
+        Dob
+      </label>
+      <input
+        type='date'
+        id='dob'
+        name='dob'
+        value={formData.dob}
+        onChange={handleChange}
+        className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring ${errors.dob ? 'border-red-500' : 'focus:border-blue-300'}`}
+      />
+      {errors.dob && <p className="text-red-500">{errors.dob}</p>}
+    </div> 
   </div>
 );
 

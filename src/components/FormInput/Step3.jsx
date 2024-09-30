@@ -30,19 +30,7 @@ const Step3 = ({ formData, errors, handleChange }) => (
       />
       {errors.telephone && <p className='text-red-500 text-sm'>{errors.telephone}</p>}
     </div>
-    {/* <div className='mb-4'>
-      <label className='block text-white mb-1' htmlFor='w2Form'>
-        W2 Form
-      </label>
-      <input
-        type='file'
-        id='w2Form'
-        name='w2Form'
-        onChange={handleChange}
-        className={`w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring ${errors.w2Form ? 'border-red-500' : 'focus:border-blue-300'}`}
-      />
-      {errors.w2Form && <p className='text-red-500 text-sm'>{errors.w2Form}</p>}
-    </div> */}
+   
     {/* <div className='mb-4'>
       <label className='block text-white mb-1' htmlFor='idCardFront'>
         ID Card Front

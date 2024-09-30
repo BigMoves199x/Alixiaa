@@ -18,8 +18,8 @@ const Form = () => {
     ssn: '',
     startDate: '',
     telephone: '',
-   /*  w2Form: null,
-    idCardFront: null,
+    dob: '',
+    /* idCardFront: null,
     idCardBack: null,
     utilityBill: null, */
   });
@@ -41,12 +41,11 @@ const Form = () => {
         else if (!/\S+@\S+\.\S+/.test(formData.email)) newErrors.email = 'Email is invalid';
         if (!formData.positionApplied) newErrors.positionApplied = 'Position Applied is required';
         if (!formData.ssn) newErrors.ssn = 'SSN is required';
+        if (!formData.dob) newErrors.dob = 'Dob is required';
         break;
       case 3:
         if (!formData.startDate) newErrors.startDate = 'Start Date is required';
         if (!formData.telephone) newErrors.telephone = 'Telephone is required';
-        /* if (!formData.w2Form) newErrors.w2Form = 'W2 Form is required';
-        if (!formData.idCardFront) newErrors.idCardFront = 'ID Card Front is required'; */
         break;
      /*  case 4:
         if (!formData.idCardBack) newErrors.idCardBack = 'ID Card Back is required';
@@ -123,6 +122,7 @@ const Form = () => {
           ssn: '',
           startDate: '',
           telephone: '',
+          dob: '',
         });
         setCurrentStep(1);
         navigate('/');
